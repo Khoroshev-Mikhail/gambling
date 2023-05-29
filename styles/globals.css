@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Impact';
+  src: url('/_next/static/fonts/Impact.woff2') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Далее вы можете использовать ваш шрифт в стилях */
+body {
+  font-family: 'Impact', sans-serif;
+}
