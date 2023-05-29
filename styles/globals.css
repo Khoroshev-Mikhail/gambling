@@ -13,3 +13,79 @@
 body {
   font-family: 'Impact', sans-serif;
 }
+._text_h1 {
+  background: linear-gradient(to top, #FFA800, #EBFF00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+._text-points {
+  background: linear-gradient(180deg, #0066FF 0%, #BD00FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* text-fill-color: transparent; */
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+._bg-header {
+  background: linear-gradient(180deg, #8000FF 0%, #9E00FF 40.42%, #61009C 100%);
+}
+._header-shadow{
+  box-shadow: inset 0px 4px 3px rgba(32, 0, 65, 0.91);
+}
+._header-text{
+  background: linear-gradient(180deg, #0066FF 0%, #BD00FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /* text-fill-color: transparent; */
+}
+._header_gold{
+  background: linear-gradient(180deg, #EBFF00 0%, #FFA800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.05em;
+}
+
+._footer-button{
+  background: radial-gradient(90.6% 83.7% at 50% 16.3%, #FF00E5 6.04%, #9501FF 100%);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0px 7px 5px rgba(92, 15, 255, 0.32), inset 0px 4px 1px rgba(241, 202, 255, 0.49);
+}
+._footer-text{
+  background: linear-gradient(180deg, #EBFF00 0%, #FFA800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 0px 4px 10px rgba(250, 255, 0, 0.62);
+}
+._footer-button-auto{
+  background: linear-gradient(180deg, #70FF00 0%, #BD00FF 0.01%, #005484 100%);
+  border: 1px solid #00A3FF;
+  box-shadow: 0px 4px 4px rgba(36, 255, 0, 0.27), inset 0px -6px 4px rgba(0, 163, 255, 0.26), inset 0px 4px 4px rgba(255, 247, 207, 0.65);
+}
+._footer-button-spin{
+  background: linear-gradient(180deg, #70FF00 0%, #008405 100%);
+  border: 1px solid #FFB800;
+  box-shadow: 0px 4px 4px rgba(36, 255, 0, 0.27), inset 0px -6px 4px rgba(0, 255, 56, 0.26), inset 0px 4px 4px rgba(255, 247, 207, 0.65);
+}
+
+._footer-button-auto-text {
+  background: linear-gradient(180deg, #FFFFFF 0%, #1DC9FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: -1px -1px 0 rgba(0, 224, 255, 0.28), 1px -1px 0 rgba(0, 224, 255, 0.28), -1px 1px 0 rgba(0, 224, 255, 0.28), 1px 1px 0 rgba(0, 224, 255, 0.28);
+  /* text-fill-color: transparent; */
+}
+._footer-button-spin-text {
+  background: linear-gradient(180deg, #FFFFFF 0%, #73FF1D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: -1px -1px 0 rgba(51, 255, 0, 0.28), 1px -1px 0 rgba(51, 255, 0, 0.28), -1px 1px 0 rgba(51, 255, 0, 0.28), 1px 1px 0 rgba(51, 255, 0, 0.28);
+  /* text-fill-color: transparent; */
+}
