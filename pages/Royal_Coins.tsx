@@ -150,46 +150,21 @@ export default function Royal_Coins(){
         }
     }, [isAuto, money, rate])
 
-    useEffect(() => {
-        const handleResize = () => {
-            setDeviceWidth(window.innerWidth)
-            setDeviceHeight(window.innerHeight)
-        }
-    
-        if (typeof window !== 'undefined') {
-            setDeviceWidth(window.innerWidth)
-            setDeviceHeight(window.innerHeight)
-            window.addEventListener('resize', handleResize)
-        }
-    
-        return () => {
-            if (typeof window !== 'undefined') {
-                window.removeEventListener('resize', handleResize)
-            }
-        }   
-    }, [])
-
-    useEffect(() => {
-        const handleResize = () => {
-          if (main.current) {
-            const w = main.current.clientWidth;
-            const h = main.current.clientHeight;
-            const res = w / 3 >= h * maxAspectRatio / 3 ? h / 3 : w / 3;
-            setImgHeightPx(Math.floor(res));
-          }
-        };
-      
-        // Вызовите handleResize при инициализации
-        handleResize();
-      
-        // Добавьте обработчик события resize
-        window.addEventListener('resize', handleResize);
-      
-        // Очистите обработчик события при размонтировании компонента
-        return () => {
-          window.removeEventListener('resize', handleResize);
-        };
-      }, [main, maxAspectRatio]);
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //       if (main.current) {
+    //         const w = main.current.clientWidth;
+    //         const h = main.current.clientHeight;
+    //         const res = w / 3 >= (h * maxAspectRatio / 3 ) ? (h / 3) : (w / 3);
+    //         setImgHeightPx(Math.floor(res));
+    //       }
+    //     }
+    //     handleResize()
+    //     window.addEventListener('resize', handleResize)
+    //     return () => {
+    //       window.removeEventListener('resize', handleResize)
+    //     }
+    //   }, [main, maxAspectRatio])
       
 
     return (
@@ -203,7 +178,7 @@ export default function Royal_Coins(){
                 <div className="flex-grow w-full flex justify-center py-2 px-2 overflow-hidden">
      
                     <div className="w-full flex flex-col justify-center relative">
-                        <div ref={main} className={`overflow-hidden  p-1 xs:p-5 flex justify-between rounded-[20px] border-[1px] border-[#FFE600] gap-x-6 gap-y-6 bg-black bg-opacity-75`}>
+                        <div ref={main} className={`max-h-[486px] overflow-hidden  p-1 xs:p-5 flex justify-between rounded-[20px] border-[1px] border-[#FFE600] gap-x-6 gap-y-6 bg-black bg-opacity-75`}>
                     
                             <motion.div className="flex flex-col justify-between" animate={{y: y1}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel1.map((el, i) => {
