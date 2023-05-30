@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { decrementRate, incrementRate } from "@/app/store"
 
-export default function Footer({ spinHandler, winner, isAuto, setIsAuto }: { spinHandler?: any, winner?: number | null, isAuto?: boolean, setIsAuto: any}){
+export default function Footer({ spinHandler, winner, isAuto, setIsAuto }: { spinHandler?: any, winner?: number | null, isAuto?: boolean, setIsAuto?: any}){
     const rate = useAppSelector(state => state.rate)
     const money = useAppSelector(state => state.money)
     const dispatch = useAppDispatch()
