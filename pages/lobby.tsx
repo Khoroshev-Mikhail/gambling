@@ -21,7 +21,8 @@ export default function Lobby(){
                         <Image src={one} alt="Royal Coins" />
                     </Link>
                     <Link href={'/win_cash'} className="block relative">
-                        <Image src={two} alt="Win Cash" />
+                        {/* <Image src={two} alt="Win Cash" /> */}
+                        <Lock />
                     </Link>
                     <Link href={'#'} className="block relative">
                         <Image src={three} alt="Hot & Spicy" />

@@ -15,6 +15,14 @@ module.exports = {
       colors: {
         '_purple': '#913BFF',
       },
+      screens: {
+        'xs': '480px',
+        'sm': '640px', // => @media (min-width: 640px) etc
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
       fontSize: {
         xs: '0.75rem',    // размер шрифта для экранов меньше 640px
         sm: '0.875rem',   // размер шрифта для экранов от 640px до 768px
