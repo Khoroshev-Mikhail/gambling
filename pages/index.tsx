@@ -1,10 +1,9 @@
-import SlotMachine from "@/Components/Slot_machine";
+
 
 export default function Home() {
     return (
         <main className="relative flex flex-col min-h-screen ">
-                       <SlotMachine />
-            {/* <div className="absolute w-full h-full bg-[url('/images/bg-main.png')] bg-no-repeat bg-cover">
+            <div className="absolute w-full h-full bg-[url('/images/bg-main.png')] bg-no-repeat bg-cover">
                 
             </div>
             <div className='flex-grow relative text-white text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl
@@ -57,7 +56,7 @@ export default function Home() {
                 We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.
                 Fair Information Practices
                 he Fair Information Practices Principles form the backbone of privacy law in the United States, and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.
-            </div> */}
+            </div>
         </main>
     )
 }
