@@ -23,12 +23,13 @@ export default function Royal_Coins(){
     const money = useAppSelector(state => state.money)
     
     const main = useRef<HTMLDivElement>(null)
+    const divRef = useRef(null);
+    const [divHeight, setDivHeight] = useState(0);
 
     const [imgHeightPx, setImgHeightPx] = useState(162);
     const [isFirstMount, setIsFirstMount] = useState<boolean>(true)
     const [isAuto, setIsAuto] = useState<boolean>(false)
     const [winner, setWinner] = useState<number | null>(null)
-    const [fixHeight, setFixHeight] = useState<null | number>(null)
 
     const [y1, setY1] = useState<number>(0)
     const [y2, setY2] = useState<number>(0)
@@ -44,6 +45,7 @@ export default function Royal_Coins(){
         if (isFirstMount) {
             setIsFirstMount(false);
         } else {
+            console.log(imgHeightPx)
             setY1(y => y - imgHeightPx * random1)
         }
       }, [reel1])
@@ -79,6 +81,7 @@ export default function Royal_Coins(){
 
     //Spin
     const handler = () => {
+
         dispatch(decrement(rate))
         dispatch(incrementStars(100))
 
@@ -131,17 +134,25 @@ export default function Royal_Coins(){
         }
     }, [isAuto, money, rate])
 
-    useEffect(()=>{
-        if(main.current){
+    useEffect(() => {
+        const handleResize = () => {
+          if (main.current) {
             const h = main.current.getBoundingClientRect().height
-            setImgHeightPx(h)
+            setImgHeightPx(h);
+          }
         }
-        if(fixHeight === null && main.current){
-            setFixHeight(main.current.getBoundingClientRect().height * 3)
+        window.addEventListener("resize", handleResize)
+        handleResize()
+        return () => {
+            window.removeEventListener("resize", handleResize)
         }
-
     }, [main])
-      
+    useEffect(() => {
+        if (divRef.current) {
+          const height = divRef.current.getBoundingClientRect().height;
+          setDivHeight(height);
+        }
+      }, []);
 
     return (
         <div className="relative min-h-screen max-h-screen">
@@ -153,39 +164,38 @@ export default function Royal_Coins(){
 
                 <div className="flex-grow w-full flex justify-center py-2 px-2 overflow-hidden">
      
-                    <div className="w-auto flex flex-col justify-center relative">
-                        <div className={`w-auto overflow-hidden flex justify-around rounded-[20px] border-[1px] border-[#FFE600]  bg-black bg-opacity-75`}>
+                    <div className="relative flex flex-col justify-center" >
+                        <div ref={divRef} style={{maxHeight: divHeight > 0 ? (divHeight + 'px') : 'none'}} className="overflow-hidden flex justify-around rounded-[20px] border-[1px] border-[#FFE600]  bg-black bg-opacity-75">
                             
-                            <motion.div className="flex flex-col justify-between" animate={{y: y1}} transition={{ duration: 1, type: 'tween' }}>
+                            <motion.div className="p-1 flex flex-col justify-between" animate={{y: y1}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel1.map((el, i) => {
                                     return (
-                                        <div ref={main} key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
-                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
+                                        <div ref={main} key={i} className="flex flex-col h-1/3 justify-center ">
+                                            <img src={el.src} alt="pick" className="aspect-[1.6] h-full"/>
                                         </div>
                                     )
                                 })}
                             </motion.div>
-
-                            <motion.div className="flex flex-col justify-between" animate={{y: y2}} transition={{ duration: 1, type: 'tween' }}>
+                            
+                            
+                            <motion.div className="p-1 flex flex-col justify-between" animate={{y: y2}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel2.map((el, i) => {
                                     return (
-                                        <div key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
-                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
+                                        <div key={i} className="flex flex-col _h-1_3 justify-center ">
+                                            <img src={el.src} alt="pick" className="aspect-[1.6] h-full"/>
                                         </div>
                                     )
                                 })}
                             </motion.div>
-
-                            <motion.div className="flex flex-col justify-between" animate={{y: y3}} transition={{ duration: 1, type: 'tween' }}>
+                            <motion.div className="p-1 flex flex-col justify-between" animate={{y: y3}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel3.map((el, i) => {
                                     return (
-                                        <div key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
-                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
+                                        <div key={i} className="flex flex-col _h-1_3 justify-center  ">
+                                            <img src={el.src} alt="pick" className="aspect-[1.6] h-full"/>
                                         </div>
                                     )
                                 })}
                             </motion.div>
-
                         </div>
                     </div>
                 </div>
