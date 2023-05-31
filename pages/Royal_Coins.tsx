@@ -16,20 +16,6 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { decrement, increment, incrementStars } from "@/app/store";
 
 const images = [ pick1, pick2, pick3, pick4, pick5, pick6, pick7, pick8, pick9 ];
-// const imgHeightPx = 162
-const maxAspectRatio = 210 / 136 // = 1.544 соотношение сторон изображений, у всех разное, берется максимальное
-
-//width всегда -16
-//min-375
-//maxWidth - 762
-//надо чтобы влазило 3 по 3 по высоте и ширине
-//высота центрального блока всегда - 56*2 - 16 = -124
-
-//360 - 124 = 236
-//800 - 16 = 784
-
-//((width - 16) / 3 > (height - 124) * maxAspectRatio / 3) ? (height - 124) / 3 : (width - 16) / 3
- 
 
 export default function Royal_Coins(){
     const dispatch = useAppDispatch()
@@ -42,16 +28,17 @@ export default function Royal_Coins(){
     const [isFirstMount, setIsFirstMount] = useState<boolean>(true)
     const [isAuto, setIsAuto] = useState<boolean>(false)
     const [winner, setWinner] = useState<number | null>(null)
+    const [fixHeight, setFixHeight] = useState<null | number>(null)
 
-    const [y1, setY1] = useState<number>(-20)
-    const [y2, setY2] = useState<number>(-20)
-    const [y3, setY3] = useState<number>(-20)
+    const [y1, setY1] = useState<number>(0)
+    const [y2, setY2] = useState<number>(0)
+    const [y3, setY3] = useState<number>(0)
     const [random1, setRandom1] = useState<number>(0)
     const [random2, setRandom2] = useState<number>(0)
     const [random3, setRandom3] = useState<number>(0)
     const [reel1, setReel1] = useState<StaticImageData[]>(images.slice(0, 3)) //перемешай
-    const [reel2, setReel2] = useState<StaticImageData[]>(images.slice(0, 3)) //перемешай
-    const [reel3, setReel3] = useState<StaticImageData[]>(images.slice(0, 3)) //перемешай
+    const [reel2, setReel2] = useState<StaticImageData[]>(images.slice(3, 6)) //перемешай
+    const [reel3, setReel3] = useState<StaticImageData[]>(images.slice(6, 9)) //перемешай
 
     useEffect(()=>{
         if (isFirstMount) {
@@ -75,34 +62,33 @@ export default function Royal_Coins(){
         }
     }, [reel3])
 
+    //Победа
     useEffect(()=>{
         if(!isFirstMount){
-            // if(reel1[reel1.length - 1] === reel2[reel2.length - 1] && reel1[reel1.length - 1] === reel3[reel3.length - 1]){
-                
-            // }
             if(reel1.length > 3 && reel1[reel1.length - 2] === reel2[reel2.length - 2] && reel1[reel1.length - 2] === reel3[reel3.length - 2]){
                 setWinner(rate * 5)
                 dispatch(increment(rate * 5))
             }
-            // if(reel1[reel1.length - 3] === reel2[reel2.length - 3] && reel1[reel1.length - 3] === reel3[reel3.length - 3]){
-
-            // }
         }
-
     }, [reel1, reel2, reel3])
+    useEffect(()=>{
+        if(winner){
+            setTimeout(()=>setWinner(null), 5000)
+        }
+    }, [winner])
 
+    //Spin
     const handler = () => {
         dispatch(decrement(rate))
-        // setWinner(null)
         dispatch(incrementStars(100))
 
         const r1 = Math.floor(Math.random() * 11) + 10
         const r2 = Math.floor(Math.random() * 11) + 10
         const r3 = Math.floor(Math.random() * 11) + 10
 
-        setRandom1(r => r1)
-        setRandom2(r => r2)
-        setRandom3(r => r3)
+        setRandom1(r1)
+        setRandom2(r2)
+        setRandom3(r3)
 
         const arr1: StaticImageData[] = []
         const arr2: StaticImageData[] = []
@@ -126,12 +112,7 @@ export default function Royal_Coins(){
         setReel3(state => state.concat(arr3))
     }
     
-    useEffect(()=>{
-        if(winner){
-            setTimeout(()=>setWinner(null), 10000)
-        }
-    }, [winner])
-
+    //Auto
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null
     
@@ -150,21 +131,16 @@ export default function Royal_Coins(){
         }
     }, [isAuto, money, rate])
 
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //       if (main.current) {
-    //         const w = main.current.clientWidth;
-    //         const h = main.current.clientHeight;
-    //         const res = w / 3 >= (h * maxAspectRatio / 3 ) ? (h / 3) : (w / 3);
-    //         setImgHeightPx(Math.floor(res));
-    //       }
-    //     }
-    //     handleResize()
-    //     window.addEventListener('resize', handleResize)
-    //     return () => {
-    //       window.removeEventListener('resize', handleResize)
-    //     }
-    //   }, [main, maxAspectRatio])
+    useEffect(()=>{
+        if(main.current){
+            const h = main.current.getBoundingClientRect().height
+            setImgHeightPx(h)
+        }
+        if(fixHeight === null && main.current){
+            setFixHeight(main.current.getBoundingClientRect().height * 3)
+        }
+
+    }, [main])
       
 
     return (
@@ -177,14 +153,14 @@ export default function Royal_Coins(){
 
                 <div className="flex-grow w-full flex justify-center py-2 px-2 overflow-hidden">
      
-                    <div className="w-full flex flex-col justify-center relative">
-                        <div ref={main} className={`max-h-[486px] overflow-hidden  p-1 xs:p-5 flex justify-between rounded-[20px] border-[1px] border-[#FFE600] gap-x-6 gap-y-6 bg-black bg-opacity-75`}>
-                    
+                    <div className="w-auto flex flex-col justify-center relative">
+                        <div className={`w-auto overflow-hidden flex justify-around rounded-[20px] border-[1px] border-[#FFE600]  bg-black bg-opacity-75`}>
+                            
                             <motion.div className="flex flex-col justify-between" animate={{y: y1}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel1.map((el, i) => {
                                     return (
-                                        <div key={i} className="flex flex-col justify-center min-h-[162px]">
-                                            <img src={el.src} alt="pick" className="block my-2"/>
+                                        <div ref={main} key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
+                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
                                         </div>
                                     )
                                 })}
@@ -193,8 +169,8 @@ export default function Royal_Coins(){
                             <motion.div className="flex flex-col justify-between" animate={{y: y2}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel2.map((el, i) => {
                                     return (
-                                        <div key={i} className="flex flex-col justify-center min-h-[162px]">
-                                            <img src={el.src} alt="pick" className="block my-2"/>
+                                        <div key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
+                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
                                         </div>
                                     )
                                 })}
@@ -203,8 +179,8 @@ export default function Royal_Coins(){
                             <motion.div className="flex flex-col justify-between" animate={{y: y3}} transition={{ duration: 1, type: 'tween' }}>
                                 {reel3.map((el, i) => {
                                     return (
-                                        <div key={i} className="flex flex-col justify-center min-h-[162px]">
-                                            <img src={el.src} alt="pick" className="block my-2"/>
+                                        <div key={i} className="flex flex-col justify-center h-1/3 py-1 sm:py-2 lg:py-3">
+                                            <img src={el.src} alt="pick" className="h-full block my-2"/>
                                         </div>
                                     )
                                 })}

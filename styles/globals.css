@@ -115,3 +115,12 @@ body {
 ._animate-blink {
   animation: blink 1s infinite;
 }
+
+._h-1_3{
+  height: 33.3333333% !important;
+  max-height: 33.3333333% !important;
+}
+._item {
+  flex: 0 0 calc(100% / 3); /* Установить ширину элемента в 1/3 ширины блока */
+  /* Дополнительные стили для элементов */
+}
